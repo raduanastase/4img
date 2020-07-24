@@ -1,11 +1,12 @@
-// Un joc creat de Vlad Timotei ver.5.75@13.07.2020
+// Un joc creat de Vlad Timotei ver.5.75@24.07.2020
 var game = "4img1word_19052020F";
 var level = {}; // solution, solution_lenght, try_lenght, completed, definition, buttons_nr, timeforaudiohint, timeoforhint
 var player = {}; // name, level, mode, startofgame, endofgame, timpepergame, scorpergame, totalscore, usedclue, tries, clue_coef, sound, olduser
 
 var btns = []; //starts with 1
 var btns_txt = []; //starts with 0
-var clues = [];
+var clues = []; 
+var preloaded_imgs = new Array();
 
 var music = {}
 music.correct = document.getElementById("s_correct");
@@ -16,84 +17,7 @@ music.ninja = document.getElementById("s_ninja");
 music.switch_btn = document.getElementById("s_switch");
 music.hint = document.getElementById("s_hint");
 
-var levels = [
-    "MOISE|2,4,6,8|personaj biblic",
-    "IOSIF|1,3,5,7|personaj biblic",
-    "AVRAAM|9,11,13,15|personaj biblic",
-    "NOE|10,12,14,16|personaj biblic",
-    "ESTERA|17,19,21,23|personaj biblic",
-    "LUCA|18,20,22,24|personaj biblic",
-    "ADAM|25,27,29,43|personaj biblic",
-    "FARAON|44,11,17,5|personaj biblic",
-    "IONA|8,45,46,47|personaj biblic",
-    "DANIEL|7,50,51,24|personaj biblic",
-    "AARON|58,56,55,57|personaj biblic",
-    "IOAN|10,61,5,62|personaj biblic",
-    "PETRU|72,74,73,63|personaj biblic",
-    "LAZĂR|64,65,66,67|personaj biblic",
-    "IUDA|68,69,70,71|personaj biblic",
-    "IOAN|79,80,81,20|personaj biblic",
-    "ILIE|82,83,84,85|personaj biblic",
-    "IOV|151,28,152,153|personaj biblic",
-    "LABAN|154,155,156,157|personaj biblic",
-    "MATEI|158,148,30,24|personaj biblic",
-    "SOLOMON|161,17,24,26|personaj biblic",
-    "NEEMIA|159,160,26,24|personaj biblic",
-    "DULCE|75,76,77,78|adjectiv",
-    "ROȘIE|35,8,59,60|substantiv-adjectiv",
-    "PUSTIU|11,52,54,53|substantiv-adjectiv",
-    "BOLNAV|35,36,37,38|substantiv-adjectiv",
-    "MARE|8,46,48,49|substantiv-adjectiv",
-    "PLÂNS|39,40,41,42|substantiv",
-    "GRIJĂ|33,31,32,34|substantiv",
-    "RUGĂCIUNE|153,31,149,150|substantiv",
-    "LOT|86,40,87,88|personaj biblic",
-    "GHEDEON|89,90,16,91|personaj biblic",
-    "ESAU|92,93,94,95|personaj biblic",
-    "ABEL|96,97,98,99|personaj biblic",
-    "RUT|100,101,102,103|personaj biblic",
-    "NAAMAN|152,153,104,105|personaj biblic",
-    "SAMSON|106,107,108,109|personaj biblic",
-    "IONATAN|110,93,111,112|personaj biblic",
-    "SAMUEL|113,114,115,116|personaj biblic",
-    "IOSUA|117,118,119,120|personaj biblic",
-    "GOLIAT|106,138,139,140|personaj biblic",
-    "SARA|121,122,123,124|personaj biblic",
-    "RAHAV|125,126,119,118|personaj biblic",
-    "MARTA|127,128,64,66|personaj biblic",
-    "PILAT|129,130,131,132|personaj biblic",
-    "ABSALOM|133,17,134,135|personaj biblic",
-    "SAUL|17,30,136,137|personaj biblic",
-    "BALAAM|134,141,142,70|personaj biblic",
-    "ZACHEU|71,143,144,145|personaj biblic",
-    "ACAN|146,1,147,71|personaj biblic",
-	"EUTIH|162,163,164,165|personaj biblic",
-	"METUSALA|166,167,168,169|personaj biblic",
-	"BOAZ|170,171,172,173|personaj biblic",
-	"ELI|174,175,176,177|personaj biblic",
-	"MEFIBOȘET|178,179,180,181|personaj biblic",
-	"HAMAN|182,183,184,21|personaj biblic",
-	"CALEB|185,186,187,188|personaj biblic",
-	"EVA|189,190,191,192|personaj biblic",
-	"NICODIM|193,194,195,196|personaj biblic",
-	"IETRO|197,198,199,200|personaj biblic",
-	"BENIAMIN|201,202,203,204|personaj biblic",
-	"ENOH|205,206,207,208|personaj biblic",
-	"SIMON|209,201,211,212|personaj biblic",
-	"DALILA|213,214,215,216|personaj biblic",
-	"BATȘEBA|217,218,219,220|personaj biblic",
-	"ISMAEL|221,222,223,224|personaj biblic",
-	"POTIFAR|225,226,227,228|personaj biblic",
-	"BARABA|229,230,231,232|personaj biblic",
-	"IUDA|233,234,235,236|personaj biblic",
-	"MICAL|237,238,239,240|personaj biblic",
-	"ȘTEFAN|241,242,243,244|personaj biblic",
-	"MIRIAM|245,246,247,248|personaj biblic",
-	"NEBUCADNEȚAR|249,250,251,252|personaj biblic",
-	"BELȘAȚAR|253,254,255,256|personaj biblic",
-	"ABNER|257,258,259,260|personaj biblic"
-
-];
+var levels=["MOISE|2,4,6,8|personaj biblic","IOSIF|1,3,5,7|personaj biblic","AVRAAM|9,11,13,15|personaj biblic","NOE|10,12,14,16|personaj biblic","ESTERA|17,19,21,23|personaj biblic","LUCA|18,20,22,24|personaj biblic","ADAM|25,27,29,43|personaj biblic","FARAON|44,11,17,5|personaj biblic","IONA|8,45,46,47|personaj biblic","DANIEL|7,50,51,24|personaj biblic","AARON|58,56,55,57|personaj biblic","IOAN|10,61,5,62|personaj biblic","PETRU|72,74,73,63|personaj biblic","LAZĂR|64,65,66,67|personaj biblic","IUDA|68,69,70,71|personaj biblic","IOAN|79,80,81,20|personaj biblic","ILIE|82,83,84,85|personaj biblic","IOV|151,28,152,153|personaj biblic","LABAN|154,155,156,157|personaj biblic","MATEI|158,148,30,24|personaj biblic","SOLOMON|161,17,24,26|personaj biblic","NEEMIA|159,160,26,24|personaj biblic","DULCE|75,76,77,78|adjectiv","ROȘIE|35,8,59,60|substantiv-adjectiv","PUSTIU|11,52,54,53|substantiv-adjectiv","BOLNAV|35,36,37,38|substantiv-adjectiv","MARE|8,46,48,49|substantiv-adjectiv","PLÂNS|39,40,41,42|substantiv","GRIJĂ|33,31,32,34|substantiv","RUGĂCIUNE|153,31,149,150|substantiv","LOT|86,40,87,88|personaj biblic","GHEDEON|89,90,16,91|personaj biblic","ESAU|92,93,94,95|personaj biblic","ABEL|96,97,98,99|personaj biblic","RUT|100,101,102,103|personaj biblic","NAAMAN|152,153,104,105|personaj biblic","SAMSON|106,107,108,109|personaj biblic","IONATAN|110,93,111,112|personaj biblic","SAMUEL|113,114,115,116|personaj biblic","IOSUA|117,118,119,120|personaj biblic","GOLIAT|106,138,139,140|personaj biblic","SARA|121,122,123,124|personaj biblic","RAHAV|125,126,119,118|personaj biblic","MARTA|127,128,64,66|personaj biblic","PILAT|129,130,131,132|personaj biblic","ABSALOM|133,17,134,135|personaj biblic","SAUL|17,30,136,137|personaj biblic","BALAAM|134,141,142,70|personaj biblic","ZACHEU|71,143,144,145|personaj biblic","ACAN|146,1,147,71|personaj biblic","EUTIH|162,163,164,165|personaj biblic","METUSALA|166,167,168,169|personaj biblic","BOAZ|170,171,172,173|personaj biblic","ELI|174,175,176,177|personaj biblic","MEFIBOȘET|178,179,180,181|personaj biblic","HAMAN|182,183,184,21|personaj biblic","CALEB|185,186,187,188|personaj biblic","EVA|189,190,191,192|personaj biblic","NICODIM|193,194,195,196|personaj biblic","IETRO|197,198,199,200|personaj biblic","BENIAMIN|201,202,203,204|personaj biblic","ENOH|205,206,207,208|personaj biblic","SIMON|209,210,211,212|personaj biblic","DALILA|213,214,215,216|personaj biblic","BATȘEBA|217,218,219,220|personaj biblic","ISMAEL|221,222,223,224|personaj biblic","POTIFAR|225,226,227,228|personaj biblic","BARABA|229,230,231,232|personaj biblic","IUDA|233,234,235,236|personaj biblic","MICAL|237,238,239,240|personaj biblic","ȘTEFAN|241,242,243,244|personaj biblic","MIRIAM|245,246,247,248|personaj biblic","NEBUCADNEȚAR|249,250,251,252|personaj biblic","BELȘAȚAR|253,254,255,256|personaj biblic","ABNER|257,258,259,260|personaj biblic"];
 
 var stats = {};
 var ranking;
@@ -323,6 +247,7 @@ function next() {
     clearTimeout(level.timeforaudiohint);
     clearTimeout(level.timeforhint);
     player.level++;
+	setTimeout(preload_next_images, 1000);
     setval(game, player.level);
     setval(game + "_score", player.totalscore);
     start(0);
@@ -546,8 +471,8 @@ function check_level() {
 function put_ranking(whattype) {
     var rank = {};
     var output = "";
-    ranking = ranking.split("||", 2);
-    rank = JSON.parse(ranking[1]);
+    ranking = ranking.split("||", 3);
+    rank = JSON.parse(ranking[2]);
     for (x in rank)
         output += '<div class="row s12"><div class="col s8 offset-s1 clasn">' + rank[x]['id'] + '. ' + rank[x]['nume'] + '</div><div class="col s2 clasp">' + rank[x]['punctaj'] + '</div></div>';
     if (whattype == "short") {
@@ -562,7 +487,10 @@ function put_ranking(whattype) {
         output += "<div class='cent center'>și alți <b>" + ranking[0] + "</b> jucători</div>";
         $("#clasament-final").html(output);
     }
+	if(ranking[1]<4) {$("#firstofthem").removeClass("invisible"); $("#lastofthem").addClass("invisible"); }
+	else {$("#firstofthem").addClass("invisible"); $("#lastofthem").removeClass("invisible"); }
 }
+
 
 function get_ranking(whattype) {
     var param = {
@@ -586,7 +514,7 @@ function check_player() {
     get_ranking("short");
     player.sound = 1;
     player.olduser = 0;
-
+    preload_home_and_next_images();
     if (player.name != 0) {
         $("#noname").hide();
         $("#salut").html(", " + player.name);
@@ -596,6 +524,27 @@ function check_player() {
         $("#noname").show();
         $("#salut").html("");
     }
+}
+
+function preload_home_and_next_images(){
+	var currentlevel = levels[player.level].split('|', 3);
+	var nextlevel = levels[parseInt(player.level)+1].split('|', 3);
+	var imgs=currentlevel[1]+","+nextlevel[1];
+	var imgs_url = imgs.split(',', 8);
+    preload_imgs(imgs_url);
+}
+
+function preload_next_images(){
+	var nextlevel = levels[parseInt(player.level)+1].split('|', 3);
+	var imgs_url = nextlevel[1].split(',', 4);
+	preload_imgs(imgs_url);
+}
+
+function preload_imgs(imgs){
+	for (var i = 0; i < imgs.length; i++) {
+		preloaded_imgs[i] = new Image();
+		preloaded_imgs[i].src = "images/"+imgs[i]+".jpg";
+	}
 }
 
 function setval(cname, cvalue) {
@@ -649,7 +598,7 @@ function newDomain(data) {
 	}
 }
 
-$(window).on("message", function(e) { newDomain(e.originalEvent.data);});
+window.addEventListener("message", function(event){newDomain(event.data);});
 
 $(document).ready(function() {    
     check_player();
