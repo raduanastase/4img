@@ -29,16 +29,10 @@ Explorator pasionat de provocări și de minunile naturii.
 <hr>
 
 <i> Probleme cunoscute </i>
-1. Efectele sonore din aceeași categorie rulează doar dacă efectul sonor precedent s-a terminat.  
-2. Literele din soluție trec pe 2 rânduri atunci când cuvantul are 9 sau mai multe litere
-3. La fiecare reincarcare a jocului, literele pentru un anumit nivel se schimba; prin metoda excluderii, se pot afla literele corecte
-4. Solutia poate fi aflata din sursa codului sau prin injectare js in bara de adresa
-5. Verificarea diponibilității numelui în baza de date se face sincron. 
-6. Setarea numelui nu se poate face fara acces la serverul vladtimotei.ro
-7. Chrome cere favicon.ico la fiecare efect sonor
-8. Dupa setarea numelui, acesta nu apare ca si salut pe Home Page - doar dupa reincarcarea paginii. 
-9. Jocul se incarca cu datele curente si abia apoi verifica date vechi, pentru a nu depinde de serverul raduanastase.net 
-10. Preluarea datelor vechi nu se poate face in modul Incognito, chiar daca datele vechi au fost create in acea sesiune. 
+1. Solutia poate fi aflata din sursa codului sau prin injectare js in bara de adresa
+2. Setarea numelui nu se poate face fara acces la serverul vladtimotei.ro
+3. Chrome cere favicon.ico la fiecare efect sonor
+4. Preluarea datelor vechi nu se poate face in modul Incognito, chiar daca datele vechi au fost create in acea sesiune. 
 
 # Changelog
 
@@ -88,3 +82,22 @@ Explorator pasionat de provocări și de minunile naturii.
 - custom motivational message
 - optimised old data transfer
 - optimised server requests
+
+<i> ver 6.0 </i> @ 09.2020
+- 100 levels in 2 languages
+- en_EN package implemented
+- allow longer solutions in easy mode
+- optimized algorithm
+- advanced data-table statistics
+- sanitized user name limited to 10 chars
+- fixed multiple sound bug
+- solution font-size responsive to level solution size
+- name is now displayed right after registration without refresh needed
+- lvl letters for easy-hard-ro-en-refresh mode stored to prevent cheating
+- injection prevention implemented
+- sound option on-off is remembered
+- userID implemented
+- changed game slug to <i>4img</i>
+
+<i> ver 6.25 </i> @ 10.2020
+- 125 levels in 2 languages
