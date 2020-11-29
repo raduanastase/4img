@@ -99,3 +99,7 @@ Explorator pasionat de provocări și de minunile naturii.
 - userID implemented
 - changed game slug to <i>4img</i>
 
+<i> ver 6.25 </i> @ 10.2020
+- 125 levels in 2 languages
+- better debugging tools
+- player that reaches last level is now able to see full ranking
